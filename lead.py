@@ -110,8 +110,18 @@ def main(args):
 
         # turn all vehicle lights on so its more visible in nighttime tests
         lead_vehicle.set_light_state(carla.VehicleLightState.All)
+        
+        #steer_val = -70/70
+        #print(steer_val)
+        #control = carla.VehicleControl(steer=steer_val)  # Adjust throttle as needed
+        #lead_vehicle.apply_control(control)
+        #control = carla.VehicleControl(steer=1)  # Adjust throttle as needed
+        
+        #lead_vehicle.apply_control(control)
 
         # wait for ego vehicle to spawn
+        #lead_vehicle.set_target_velocity(
+        #    carla.Vector3D(0, LEAD_VEHICLE_VELOCITY, 0))  # set target velocity for lead vehicle
 
         while (find_actor_by_rolename(world, EGO_VEHICLE_NAME) == None):
             try:
@@ -132,16 +142,24 @@ def main(args):
 
         print("")
         print("Ego vehicle entered safety distance!")
-        time.sleep(5)
+        #lead_vehicle.VehicleAckermannControl(steer=1)
+        #time.sleep(5)
         lead_vehicle.set_target_velocity(
             carla.Vector3D(0, LEAD_VEHICLE_VELOCITY, 0))  # set target velocity for lead vehicle
-        time.sleep(15)
+        time.sleep(5)
+        #time.sleep(15)
         lead_vehicle.set_target_velocity(
             carla.Vector3D(0, 0, 0))  # set target velocity for lead vehicle
         time.sleep(5)
-         # set target velocity for lead vehicle
-        lead_vehicle.destroy()
-        ego_vehicle.destroy()
+        
+        while(True):
+            try:
+                pass
+               
+            except KeyboardInterrupt:
+               # set target velocity for lead vehicle
+               lead_vehicle.destroy()
+               ego_vehicle.destroy() 
 
     finally:
 
